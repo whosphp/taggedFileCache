@@ -1,0 +1,2 @@
+# Laravel Taggable File Cache
+
