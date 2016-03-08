@@ -16,7 +16,8 @@ class TaggableFileCacheServiceProvider extends ServiceProvider
 		{
 			/** @var \Illuminate\Cache\CacheManager $cache */
 
-			$store = new TaggableFileStore($this->app['files'], $config['path'],$config['separator']);
+			$store = new TaggableFileStore($this->app['files'], $config['path'], $config);
+
 			return app('cache')->repository($store);
 		});
 	}

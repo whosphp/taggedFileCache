@@ -16,16 +16,23 @@ class TaggableFileStore extends FileStore
 	 *
 	 * @param  \Illuminate\Filesystem\Filesystem $files
 	 * @param  string $directory
-	 * @param  string $separator
-	 * @param  string|null $queue
+	 * @param  array $options
 	 */
-	public function __construct(Filesystem $files, $directory, $separator='~#~', $queue=null)
+	public function __construct(Filesystem $files, $directory, $options)
 	{
-		$this->separator = $separator;
-		$this->queue = $queue;
+		$defaults = [
+			'separator'=> '~#~',
+			'queue' => null
+		];
+
+		$options = array_merge($defaults,$options);
+
+		$this->separator = $options['separator'];
+		$this->queue = $options['queue'];
 
 		parent::__construct($files,$directory);
 	}
+
 
 	/**
 	 * Get the full path for the given cache key.
