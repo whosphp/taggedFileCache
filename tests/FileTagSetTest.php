@@ -10,7 +10,7 @@ class FileTagSetTest extends BaseTest
 
 	public function testTagKeyGeneratesPrefixedKey(){
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~#~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 		$tagSet = new FileTagSet($store,['foobar']);
 
 		$this->assertEquals('cache_tags~#~foobar',$tagSet->tagKey('foobar'));
@@ -19,7 +19,9 @@ class FileTagSetTest extends BaseTest
 
 	public function testTagKeyGeneratesPrefixedKeywithCustomSeparator(){
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~|~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[
+			'separator'=> '~|~',
+		]);
 		$tagSet = new FileTagSet($store,['foobar']);
 
 		$this->assertEquals('cache_tags~|~foobar',$tagSet->tagKey('foobar'));
@@ -27,7 +29,7 @@ class FileTagSetTest extends BaseTest
 
 	public function testResetTagDispatchesJob(){
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~|~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 		$tagSet = new FileTagSet($store,['testtag']);
 
 		$dispatcher = Mockery::mock(app(Dispatcher::class));

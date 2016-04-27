@@ -9,7 +9,7 @@ class TaggedFileCacheTest extends BaseTest
 
 	public function testItemKeyCallsTaggedItemKey(){
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~#~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 		$cache = new TaggedFileCache($store, new FileTagSet($store, ['foobar']));
 
 		$mock = Mockery::mock($cache);
@@ -21,7 +21,7 @@ class TaggedFileCacheTest extends BaseTest
 
 	public function testItemKeyReturnsTaggedItemKey(){
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~#~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 		$cache = new TaggedFileCache($store, new FileTagSet($store, ['foobar']));
 
 		$mock = Mockery::mock($cache);
@@ -33,7 +33,7 @@ class TaggedFileCacheTest extends BaseTest
 
 	public function testTaggedItemKeyGeneratesCorrectlyNamespacedKey(){
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~#~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 		$cache = new TaggedFileCache($store, new FileTagSet($store, ['foobar']));
 
 		$this->assertEquals('56dc3ce3ed37d104639966~#~test',$cache->taggedItemKey('test'));

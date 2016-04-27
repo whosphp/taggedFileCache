@@ -11,7 +11,7 @@ class TaggableFileStoreTest extends BaseTest
 	public function testPathGeneratesCorrectPathfoKeyWithoutSeparator(){
 		$reflectionMethod = new ReflectionMethod(TaggableFileStore::class, 'path');
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~#~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 		$reflectionMethod->setAccessible(true);
 		$path =  $reflectionMethod->invoke($store, 'foobar');
 
@@ -23,7 +23,7 @@ class TaggableFileStoreTest extends BaseTest
 	public function testPathGeneratesCorrectPathforKeyWithSeparator(){
 		$reflectionMethod = new ReflectionMethod(TaggableFileStore::class, 'path');
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~#~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 		$reflectionMethod->setAccessible(true);
 		$path =  $reflectionMethod->invoke($store, 'boofar~#~foobar');
 
@@ -35,7 +35,7 @@ class TaggableFileStoreTest extends BaseTest
 	public function testPathGeneratesCorrectPathforKeyWithCustomSeparator(){
 		$reflectionMethod = new ReflectionMethod(TaggableFileStore::class, 'path');
 
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~|~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),['separator'=>'~|~']);
 		$reflectionMethod->setAccessible(true);
 		$path =  $reflectionMethod->invoke($store, 'boofar~|~foobar');
 
@@ -45,7 +45,7 @@ class TaggableFileStoreTest extends BaseTest
 	}
 
 	public function testTagsReturnsTaggedFileCache(){
-		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),'~#~');
+		$store = new TaggableFileStore($this->app['files'], storage_path('framework/cache'),[]);
 
 		$cache = $store->tags(['abc','def']);
 
@@ -55,7 +55,7 @@ class TaggableFileStoreTest extends BaseTest
 	public function testFlushOldTagDeletesTagFolders(){
 
 		$filesMock = Mockery::mock(new Illuminate\Filesystem\Filesystem());
-		$store = new TaggableFileStore($filesMock, '/','~#~');
+		$store = new TaggableFileStore($filesMock, '/',[]);
 
 		$filesMock->shouldReceive('directories')->with('/')->andReturn([
 			'test/foobar',
@@ -77,7 +77,7 @@ class TaggableFileStoreTest extends BaseTest
 	public function testFlushOldTagDoesNotDeletesOtherFolders(){
 
 		$filesMock = Mockery::mock(new Illuminate\Filesystem\Filesystem());
-		$store = new TaggableFileStore($filesMock, '/','~#~');
+		$store = new TaggableFileStore($filesMock, '/',[]);
 
 		$filesMock->shouldReceive('directories')->with('/')->andReturn([
 		   'test/foobar/foo',
