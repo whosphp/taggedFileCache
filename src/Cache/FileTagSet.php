@@ -6,7 +6,8 @@ use Unikent\Jobs\FlushTagFromFileCacheJob;
 
 class FileTagSet extends TagSet{
 
-
+	protected static $driver = 'tfile';
+	
 	/**
 	 * Get the tag identifier key for a given tag.
 	 *
@@ -31,7 +32,7 @@ class FileTagSet extends TagSet{
 		$oldID = $this->store->get($this->tagKey($name));
 
 		if ($oldID!==false){
-			$job = new FlushTagFromFileCacheJob($oldID);
+			$job = new FlushTagFromFileCacheJob($oldID, static::$driver);
 			if(!empty($this->store->queue)){
 				$job->onQueue($this->store->queue);
 			}
