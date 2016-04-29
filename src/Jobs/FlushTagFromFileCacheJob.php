@@ -23,15 +23,17 @@ class FlushTagFromFileCacheJob implements ShouldQueue
 	use InteractsWithQueue, Queueable, SerializesModels;
 
 	protected $tagIds;
+	protected $driver;
 
 	/**
 	 * Create a new job instance.
 	 *
 	 * @param $ids array of tagIds to find and purge
 	 */
-    public function __construct( $ids )
+    public function __construct( $ids , $driver = 'tfile')
     {
         $this->tagIds = is_array($ids)?$ids:[$ids];
+	$this->driver = $driver;
     }
 
     /**
@@ -42,7 +44,7 @@ class FlushTagFromFileCacheJob implements ShouldQueue
     public function handle()
     {
         foreach($this->tagIds as $id){
-			app('cache')->driver('tfile')->flushOldTag($id);
-		}
+		app('cache')->driver($this->driver)->flushOldTag($id);
+	}
     }
 }
