@@ -3,11 +3,9 @@
 namespace Unikent\Cache;
 
 use Illuminate\Cache\TaggedCache;
-use Illuminate\Cache\RetrievesMultipleKeys;
 
 class TaggedFileCache extends TaggedCache
 {
-	use RetrievesMultipleKeys;
 
 	/**
 	 * {@inheritdoc}
