@@ -14,7 +14,7 @@ Then, update `config/app.php` by adding an entry for the service provider.
 ```
 'providers' => [
     // ...
-    'Unikent\Cache\TaggableFileCacheServiceProvider',
+    Unikent\Cache\TaggableFileCacheServiceProvider::class
 ];
 ```
 Finally, add the necessary config to  `config\cache.php`. 
