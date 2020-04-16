@@ -2,6 +2,7 @@
     "name": "whosphp/tfilecache",
     "description": "Taggable File Cache driver for Laravel. Allows the use of Cache tags with a file cache.",
     "version" : "2.0.3",
+    "license": "MIT",
     "authors": [
         {
             "name": "gjmh-unikent",
