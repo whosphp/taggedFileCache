@@ -2,6 +2,7 @@
 
 namespace Unikent\Cache;
 
+use Illuminate\Support\Str;
 use Illuminate\Cache\FileStore;
 use Illuminate\Filesystem\Filesystem;
 
@@ -80,7 +81,7 @@ class TaggableFileStore extends FileStore
 	public function flushOldTag($tagId){
 
 		foreach ($this->files->directories($this->directory) as $directory) {
-			if(str_contains(basename($directory),$tagId)){
+			if(Str::contains(basename($directory),$tagId)){
 				$this->files->deleteDirectory($directory);
 			}
 		}
