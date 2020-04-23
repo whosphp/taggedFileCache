@@ -7,7 +7,7 @@ This product is publicly available under the terms of the MIT license included i
 ## Installation and Requirements
 First, you'll need to require the package with Composer:
 ```
-composer require unikent/tfilecache
+composer require whosphp/tfilecache
 ```
 
 Then, update `config/app.php` by adding an entry for the service provider.
@@ -23,19 +23,24 @@ Finally, add the necessary config to  `config\cache.php`.
 'default' => env('CACHE_DRIVER', 'tfile'),
 
 'stores' => [
-
-		'tfile' => [
-			'driver' => 'tfile',
-			'path'   => storage_path('framework/cache')
-		],
-		// ...
+    'tfile' => [
+        'driver' => 'tfile',
+        'path'   => storage_path('framework/cache'),
+        'connection' => null,
+        'queue' => null,
+        'separator' => null,
+    ],
+    // ...
 ],
 ```
 
 ## Optional Configuration
 There are some optional config options available in the store definition above:
 
+`connection` :  accepts the string name of a queue connection to use for [tag clean up](#tag-cleanup), will use the default queue connection if omitted.
+
 `queue` :  accepts the string name of a queue to use for [tag clean up](#tag-cleanup), will use the default queue if omitted.
+
 `separator` : defines the separator character or sequence to be used internally, this should be chosen to **never** collide with a key value. defaults to `~#~` if omitted.
 
 

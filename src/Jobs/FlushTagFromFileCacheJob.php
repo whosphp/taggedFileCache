@@ -9,31 +9,31 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class FlushTagFromFileCacheJob implements ShouldQueue
 {
-	/*
-	|--------------------------------------------------------------------------
-	| Queueable Jobs
-	|--------------------------------------------------------------------------
-	|
-	| This job base class provides a central location to place any logic that
-	| is shared across all of your jobs. The trait included with the class
-	| provides access to the "queueOn" and "delay" queue helper methods.
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Queueable Jobs
+    |--------------------------------------------------------------------------
+    |
+    | This job base class provides a central location to place any logic that
+    | is shared across all of your jobs. The trait included with the class
+    | provides access to the "queueOn" and "delay" queue helper methods.
+    |
+    */
 
-	use InteractsWithQueue, Queueable, SerializesModels;
+    use InteractsWithQueue, Queueable, SerializesModels;
 
-	protected $tagIds;
-	protected $driver;
+    protected $tagIds;
+    protected $driver;
 
-	/**
-	 * Create a new job instance.
-	 *
-	 * @param $ids array of tagIds to find and purge
-	 */
-    public function __construct( $ids , $driver = 'tfile')
+    /**
+     * Create a new job instance.
+     *
+     * @param $ids array of tagIds to find and purge
+     */
+    public function __construct($ids, $driver = 'tfile')
     {
-        $this->tagIds = is_array($ids)?$ids:[$ids];
-	$this->driver = $driver;
+        $this->tagIds = is_array($ids) ? $ids : [$ids];
+        $this->driver = $driver;
     }
 
     /**
@@ -43,8 +43,8 @@ class FlushTagFromFileCacheJob implements ShouldQueue
      */
     public function handle()
     {
-        foreach($this->tagIds as $id){
-		app('cache')->driver($this->driver)->flushOldTag($id);
-	}
+        foreach ($this->tagIds as $id) {
+            app('cache')->driver($this->driver)->flushOldTag($id);
+        }
     }
 }

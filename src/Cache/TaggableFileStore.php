@@ -10,7 +10,8 @@ class TaggableFileStore extends FileStore
 {
 
 	public $separator;
-	protected $queue;
+    public $connection;
+    public $queue;
 
 	/**
 	 * Create a new file cache store instance.
@@ -21,15 +22,17 @@ class TaggableFileStore extends FileStore
 	 */
 	public function __construct(Filesystem $files, $directory, $options)
 	{
-		$defaults = [
-			'separator'=> '~#~',
-			'queue' => null
-		];
+        $defaults = [
+            'separator'=> '~#~',
+            'connection' => null,
+            'queue' => null
+        ];
 
-		$options = array_merge($defaults,$options);
+        $options = array_merge($defaults,$options);
 
-		$this->separator = $options['separator'];
-		$this->queue = $options['queue'];
+        $this->separator = $options['separator'];
+        $this->connection = $options['connection'];
+        $this->queue = $options['queue'];
 
 		parent::__construct($files,$directory);
 	}
